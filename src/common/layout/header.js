@@ -24,13 +24,13 @@ class Header extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                    <h3 className="text-muted">Project name</h3>
+                    <h3 className="text-muted">React with webpack</h3>
                 </div>
 
                 <div className="jumbotron">
-                    <h1 className="display-3">Jumbotron heading</h1>
-                    <p className="lead">LOREM</p>
-                    <p><a className="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+                    <h1 className="display-3">React with Redux</h1>
+                    <p className="lead">Project to study what better way with react + redux + webpack.</p>
+                    <p><a className="btn btn-lg btn-success" href="https://github.com/douglaslira/react-webpack" role="button" target="_blank">Github</a></p>
                 </div>
             </div>
         )

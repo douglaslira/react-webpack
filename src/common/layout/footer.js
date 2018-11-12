@@ -9,7 +9,7 @@ class Footer extends React.Component {
     render() {
         return (
             <footer className="footer">
-                <p>© Company 2017</p>
+                <p>© Douglas Lira - 2018</p>
             </footer>
         )
     }

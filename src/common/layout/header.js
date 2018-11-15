@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 class Header extends React.Component {
 
@@ -7,20 +8,40 @@ class Header extends React.Component {
         super(props, context);
     }
 
+    componentWillMount() {
+        this.unlisten = this.props.history.listen((location, action) => {
+
+        });
+    }
+    componentWillUnmount() {
+        this.unlisten();
+    }
+
     render() {
+
+        const { location } = this.props;
+        const checkRouter = (node) => {
+            if(location.pathname === node){
+                return {backgroundColor: "#000", color: "#FFF"};
+            }
+        };
+
         return (
             <div>
                 <div className="header clearfix">
                     <nav>
                         <ul className="nav nav-pills float-right">
                             <li className="nav-item">
-                                <Link className="nav-link active" to='/'>Home</Link>
+                                <Link className="nav-link" style={checkRouter('/panel')} to='panel'>Panel</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='about'>About</Link>
+                                <Link className="nav-link" style={checkRouter('/')} to='/'>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='contact'>Contact</Link>
+                                <Link className="nav-link" style={checkRouter('/about')} to='about'>About</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" style={checkRouter('/contact')} to='contact'>Contact</Link>
                             </li>
                         </ul>
                     </nav>
@@ -37,4 +58,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

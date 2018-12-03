@@ -28,24 +28,6 @@ export function FakeBackend() {
                     return;
                 }
 
-                if (url.endsWith('/users') && opts.method === 'GET') {
-                    if (opts.headers && opts.headers.Authorization === `Basic ${window.btoa('test:test')}`) {
-                        resolve({ ok: true, result: () => Promise.resolve(JSON.stringify(users)) });
-                    } else {
-                        resolve({ status: 401, result: () => Promise.resolve() });
-                    }
-                    return;
-                }
-
-                if (url.endsWith('/users') && opts.method === 'POST') {
-                    if (opts.headers && opts.headers.Authorization === `Basic ${window.btoa('test:test')}`) {
-                        resolve({ ok: true, result: () => Promise.resolve(JSON.stringify(users)) });
-                    } else {
-                        resolve({ status: 401, result: () => Promise.resolve() });
-                    }
-                    return;
-                }
-
                 realFetch(url, opts).then(response => resolve(response));
             }, 500);
         });

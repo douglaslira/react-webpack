@@ -9,10 +9,6 @@ class App extends React.Component {
         super(props, context);
     }
 
-    componentDidMount() {
-        console.log("OPA");
-    }
-
     render() {
 
         const { children } = this.props;

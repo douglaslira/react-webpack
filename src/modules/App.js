@@ -14,7 +14,7 @@ class App extends React.Component {
 
         return (
             <div className="container">
-                <Header/>
+                <Header />
                 <div className="row marketing">
                     { children }
                 </div>

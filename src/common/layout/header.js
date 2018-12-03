@@ -1,20 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
+import { LoginService } from "../../modules/login/service/LoginService";
 
 class Header extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-    }
-
-    componentWillMount() {
-        this.unlisten = this.props.history.listen((location, action) => {
-
-        });
-    }
-    componentWillUnmount() {
-        this.unlisten();
     }
 
     render() {
@@ -30,7 +22,7 @@ class Header extends React.Component {
             <div>
                 <div className="header clearfix">
                     <nav>
-                        <ul className="nav nav-pills float-right">
+                        <ul className="nav nav-pills float-right" style={{'visibility': 'visible'}}>
                             <li className="nav-item">
                                 <Link className="nav-link" style={checkRouter('/panel')} to='panel'>Panel</Link>
                             </li>

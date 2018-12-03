@@ -2,7 +2,8 @@ import config from 'config';
 
 export const LoginService = {
     login,
-    logout
+    logout,
+    checkLogin
 };
 
 function logout() {
@@ -26,6 +27,10 @@ function login(username, password) {
         return user;
     });
 
+}
+
+function checkLogin(){
+    return window.localStorage.getItem('user') ? true : false;
 }
 
 function handleResponse(obj) {

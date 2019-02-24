@@ -1,12 +1,14 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
+@import 'about';
+
 body {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     background-color:#fff;
 }
 
-.header,
-.marketing,
-.footer {
+.header, .marketing, .footer {
     padding-right: 1rem;
     padding-left: 1rem;
 }
@@ -14,12 +16,12 @@ body {
 .header {
     padding-bottom: 1rem;
     border-bottom: .05rem solid #e5e5e5;
-}
 
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 3rem;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 3rem;
+    }
 }
 
 .footer {
@@ -28,11 +30,6 @@ body {
     border-top: .05rem solid #e5e5e5;
 }
 
-@media (min-width: 48em) {
-    .container {
-        max-width: 46rem;
-    }
-}
 .container-narrow > hr {
     margin: 2rem 0;
 }
@@ -40,17 +37,24 @@ body {
 .jumbotron {
     text-align: center;
     border-bottom: .05rem solid #e5e5e5;
-}
-.jumbotron .btn {
-    padding: .75rem 1.5rem;
-    font-size: 1.5rem;
+    
+    .btn {
+        padding: .75rem 1.5rem;
+        font-size: 1.5rem;
+    }
 }
 
 .marketing {
     margin: 3rem 0;
+    p + h4 {
+        margin-top: 1.5rem;
+    }
 }
-.marketing p + h4 {
-    margin-top: 1.5rem;
+
+@media (min-width: 48em) {
+    .container {
+        max-width: 46rem;
+    }
 }
 
 @media screen and (min-width: 48em) {

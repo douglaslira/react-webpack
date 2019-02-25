@@ -2,7 +2,7 @@
 - npm install
 
 # HOW TO START
-- npm tun start
+- npm run start
 
 # HOW TO USE
 - username: admin

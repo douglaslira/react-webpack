@@ -1,5 +1,5 @@
 # HOW TO INSTALL
-- npm install
+- npm install OK
 
 # HOW TO START
 - npm run start

@@ -57,6 +57,7 @@ class Header extends React.Component {
                                         <li className="nav-item">
                                             <Link className="nav-link" to='contact'>Contact</Link>
                                         </li>
+                                        { logged ? <li className="nav-item"><button className="btn btn-danger" onClick={this.logout}>Logout</button></li> : '' }
                                     </ul>
                                 </nav>
                                 <h3 className="text-muted">React with webpack</h3>
@@ -65,7 +66,6 @@ class Header extends React.Component {
                             <div className="jumbotron">
                                 <h1 className="display-3">React with Webpack</h1>
                                 <p className="lead">Project to study what better way with react + webpack.</p>
-                                {logged ? <p><button className="btn btn-danger" onClick={this.logout}>Logout</button></p> : '' }
                                 <p>
                                     <a className="btn btn-lg btn-success" href="https://github.com/douglaslira/react-webpack" role="button" target="_blank">Github</a>
                                 </p>

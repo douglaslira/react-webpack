@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TodoList from "../../common/component/TodoList";
+
 class Home extends React.Component {
 
     constructor(props, context) {
@@ -8,7 +10,10 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>HOME</div>
+            <div className="container">
+                <h1>Lista de Atividades</h1>
+                <TodoList />
+            </div>
         )
     }
 }

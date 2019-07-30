@@ -23,7 +23,7 @@ class App extends React.Component {
     render() {
 
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <Header />
                 <div className="row marketing">
                     <Switch>

@@ -7,8 +7,7 @@ import { PrivateRoute } from "../common/component/PrivateRoute";
 
 import About from "./about/About";
 import Home from "./home/Home";
-import Contact from "./contact/Contact";
-import Panel from "./panel/Panel";
+import Todo from "./todo/Todo";
 import Login from "./login/Login";
 
 class App extends React.Component {
@@ -29,9 +28,8 @@ class App extends React.Component {
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <PrivateRoute exact={true} path="/" component={Home} />
-                        <PrivateRoute path="/panel" component={Panel} />
+                        <PrivateRoute path="/todo" component={Todo} />
                         <PrivateRoute path="/about" component={About} />
-                        <PrivateRoute path="/contact" component={Contact} />
                     </Switch>
                 </div>
                 <Footer/>

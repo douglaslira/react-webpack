@@ -32,6 +32,23 @@ export function FakeBackend() {
                     return;
                 }
 
+                if (url.endsWith('/tasks') && opts.method === 'POST') {
+                    let params = JSON.parse(opts.body);
+                    if (params.title || params.description) {
+                        let responseJson = {
+                            id: todoList.length + 1,
+                            title: params.title,
+                            description: params.description,
+                            status: params.status
+                        };
+                        todoList.push(responseJson);
+                        resolve({ ok: true, result: () => Promise.resolve(JSON.stringify(responseJson)) });
+                    } else {
+                        reject('Task is incorrect');
+                    }
+                    return;
+                }
+
                 if (url.endsWith('/tasks') && opts.method === 'DELETE') {
                     let params = JSON.parse(opts.body);
                     let indexOfTask = todoList.findIndex((obj)=>{

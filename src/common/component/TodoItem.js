@@ -7,12 +7,24 @@ class Todo extends React.Component {
     }
 
     render() {
+
+        function formatStatus(code) {
+            switch (code) {
+                case 1:
+                    return (<span className="badge badge-primary">A</span>);
+                case 2:
+                    return (<span className="badge badge-danger">F</span>);
+                default:
+                    break;
+            }
+        }
+
         return (
             <div className="list-group-item list-group-item-action">
                 <div className="row">
                     <div className="col-8">
                         <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1">{this.props.title}</h5>
+                            <h5 className="mb-1">{formatStatus(this.props.status)} {this.props.title}</h5>
                         </div>
                         <small>{this.props.description}</small>
                     </div>

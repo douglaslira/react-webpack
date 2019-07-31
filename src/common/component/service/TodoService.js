@@ -2,8 +2,27 @@ import config from 'config';
 
 export const TodoService = {
     getTasks,
+    createTasks,
     removeTasks
 };
+
+function createTasks(obj) {
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+    };
+
+    return fetch(`${config.apiUrl}/tasks`, requestOptions).then(handleResponse).then(task => {
+        let response = {};
+        if(task){
+            response.status = true;
+        }
+        return response;
+    });
+
+}
 
 function removeTasks(obj) {
 

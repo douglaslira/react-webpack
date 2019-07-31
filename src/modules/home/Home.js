@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TodoList from "../../common/component/TodoList";
+import TodoContent from "../../common/component/TodoContent";
 
 class Home extends React.Component {
 
@@ -12,7 +12,7 @@ class Home extends React.Component {
         return (
             <div className="container">
                 <h1>Lista de Atividades</h1>
-                <TodoList />
+                <TodoContent />
             </div>
         )
     }

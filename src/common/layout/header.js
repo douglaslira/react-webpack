@@ -46,9 +46,6 @@ class Header extends React.Component {
                                 <nav>
                                     <ul className="nav nav-pills float-right">
                                         <li className="nav-item">
-                                            <Link className="nav-link" to='panel'>Panel</Link>
-                                        </li>
-                                        <li className="nav-item">
                                             <Link className="nav-link" to='/'>Home</Link>
                                         </li>
                                         <li className="nav-item">
@@ -62,16 +59,7 @@ class Header extends React.Component {
                                 </nav>
                                 <h3 className="text-muted">React with webpack</h3>
                             </div>
-
-                            <div className="jumbotron">
-                                <h1 className="display-3">React with Webpack</h1>
-                                <p className="lead">Project to study what better way with react + webpack.</p>
-                                <p>
-                                    <a className="btn btn-lg btn-success" href="https://github.com/douglaslira/react-webpack" role="button" target="_blank">Github</a>
-                                </p>
-                            </div>
                         </div>
-
                     ) : (
                         <div></div>
                     )

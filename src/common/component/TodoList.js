@@ -21,7 +21,7 @@ class ListTodo extends React.Component {
     }
 
     filterList(status) {
-        this.setState({loading: true});
+        this.setState({loading: true, isChecked: status});
         TodoService.getTasks().then((response)=>{
             let listFilter = [];
             if(status === 0) {
@@ -31,7 +31,7 @@ class ListTodo extends React.Component {
                     return obj.status === status;
                 });
             }
-            this.setState({isChecked: status, list: listFilter, loading: false});
+            this.setState({list: listFilter, loading: false});
         });
     }
 

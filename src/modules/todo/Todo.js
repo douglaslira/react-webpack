@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from "react-router";
-import { TodoService } from "../../common/component/service/TodoService";
+import { TodoService } from "../../common/component/todo/service/TodoService";
+import todoApi from '../../common/service/todoApi';
 
 class Todo extends React.Component {
 
@@ -18,8 +19,9 @@ class Todo extends React.Component {
         let taskID = this.props.match.params.id || 0;
         let self = this;
         if(taskID) {
-            TodoService.getTasks(taskID).then((response) => {
-                self.setState(response[0]);
+            todoApi.getTasks(taskID).then((response) => {
+                response.id = ''+response.id;
+                self.setState(response);
             });
         }
     }
@@ -32,7 +34,7 @@ class Todo extends React.Component {
         event.preventDefault();
         let params = this;
         if(params.state.id) {
-            TodoService.updateTasks(params.state).then(function(response){
+            todoApi.updateTasks(params.state).then(function(response){
                 if(response.status){
                     params.setState({
                         title: '',
@@ -43,7 +45,7 @@ class Todo extends React.Component {
                 }
             });
         } else {
-            TodoService.createTasks(params.state).then(function(response){
+            todoApi.createTasks(params.state).then(function(response){
                 if(response.status){
                     params.setState({
                         title: '',

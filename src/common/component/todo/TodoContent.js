@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItem from "./TodoItem";
 import TodoFilter from "./TodoFilter";
 import { TodoService } from "./service/TodoService";
+import todoApi from '../../service/todoApi';
 
 class TodoContent extends React.Component {
 
@@ -15,18 +16,16 @@ class TodoContent extends React.Component {
     }
 
     componentDidMount() {
-        TodoService.getTasks().then((response)=>{
+        todoApi.getTasks().then((response)=>{
             this.setState({list: response});
         });
     }
 
     filterList(status) {
         this.setState({loading: true, isChecked: status});
-        TodoService.getTasks().then((response)=>{
-            let listFilter = [];
-            if(status === 0) {
-                listFilter = response;
-            } else {
+        todoApi.getTasks().then((response)=>{
+            let listFilter = response;
+            if(status !== 0) {
                 listFilter = response.filter((obj)=>{
                     return obj.status === status;
                 });
@@ -37,8 +36,12 @@ class TodoContent extends React.Component {
 
     removeTask(id) {
         this.setState({loading: true});
-        TodoService.removeTasks({id: id}).then((response)=>{
-            this.setState({list: response, loading: false});
+        todoApi.removeTasks({id: id}).then((response)=>{
+            this.setState({loading: false});
+        }).then(()=>{
+            todoApi.getTasks().then((response)=>{
+                this.setState({list: response});
+            });
         });
     }
 

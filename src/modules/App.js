@@ -3,7 +3,7 @@ import { Route, Link, Switch, Redirect } from 'react-router-dom';
 
 import Header from "../common/layout/header";
 import Footer from "../common/layout/footer";
-import { PrivateRoute } from "../common/component/PrivateRoute";
+import { PrivateRoute } from "../common/component/privateroute/PrivateRoute";
 
 import About from "./about/About";
 import Home from "./home/Home";

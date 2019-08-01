@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TodoContent from "../../common/component/TodoContent";
+import TodoContent from "../../common/component/todo/TodoContent";
 
 class Home extends React.Component {
 

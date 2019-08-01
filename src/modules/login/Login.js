@@ -50,7 +50,7 @@ class Login extends React.Component {
         const { username, password, submitted, loading, error } = this.state;
 
         return (
-            <div className="col-md-6">
+            <div className="col-md-6 offset-md-3">
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>

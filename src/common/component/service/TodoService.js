@@ -3,8 +3,27 @@ import config from 'config';
 export const TodoService = {
     getTasks,
     createTasks,
+    updateTasks,
     removeTasks
 };
+
+function updateTasks(obj) {
+
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+    };
+
+    return fetch(`${config.apiUrl}/tasks`, requestOptions).then(handleResponse).then(task => {
+        let response = {};
+        if(task){
+            response.status = true;
+        }
+        return response;
+    });
+
+}
 
 function createTasks(obj) {
 
@@ -38,7 +57,7 @@ function removeTasks(obj) {
 
 }
 
-function getTasks() {
+function getTasks(id) {
 
     const requestOptions = {
         method: 'GET',
@@ -46,7 +65,15 @@ function getTasks() {
     };
 
     return fetch(`${config.apiUrl}/tasks`, requestOptions).then(handleResponse).then(todo => {
-        return todo;
+        let newList = [];
+        if(id) {
+            newList = todo.filter((item)=>{
+                return item.id === parseInt(id)
+            })
+        } else {
+            newList = todo;
+        }
+        return newList;
     });
 
 }

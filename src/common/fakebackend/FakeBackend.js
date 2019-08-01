@@ -32,6 +32,26 @@ export function FakeBackend() {
                     return;
                 }
 
+                if (url.endsWith('/tasks') && opts.method === 'PUT') {
+                    let params = JSON.parse(opts.body);
+                    if (params.title || params.description || params.id) {
+                        let indexOfTask = todoList.findIndex((obj)=>{
+                            return obj.id === params.id;
+                        });
+                        let responseJson = {
+                            id: parseInt(params.id),
+                            title: params.title,
+                            description: params.description,
+                            status: parseInt(params.status)
+                        };
+                        todoList[indexOfTask] = responseJson;
+                        resolve({ ok: true, result: () => Promise.resolve(JSON.stringify(responseJson)) });
+                    } else {
+                        reject('Task is incorrect');
+                    }
+                    return;
+                }
+
                 if (url.endsWith('/tasks') && opts.method === 'POST') {
                     let params = JSON.parse(opts.body);
                     if (params.title || params.description) {
@@ -39,7 +59,7 @@ export function FakeBackend() {
                             id: todoList.length + 1,
                             title: params.title,
                             description: params.description,
-                            status: params.status
+                            status: parseInt(params.status)
                         };
                         todoList.push(responseJson);
                         resolve({ ok: true, result: () => Promise.resolve(JSON.stringify(responseJson)) });

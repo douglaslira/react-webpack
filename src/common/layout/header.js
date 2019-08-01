@@ -51,9 +51,6 @@ class Header extends React.Component {
                                         <li className="nav-item">
                                             <Link className="nav-link" to='about'>About</Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='contact'>Contact</Link>
-                                        </li>
                                         { logged ? <li className="nav-item"><button className="btn btn-danger" onClick={this.logout}>Logout</button></li> : '' }
                                     </ul>
                                 </nav>

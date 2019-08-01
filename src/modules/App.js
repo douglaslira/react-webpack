@@ -28,7 +28,7 @@ class App extends React.Component {
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <PrivateRoute exact={true} path="/" component={Home} />
-                        <PrivateRoute path="/todo" component={Todo} />
+                        <PrivateRoute path="/todo/:id?" component={Todo} />
                         <PrivateRoute path="/about" component={About} />
                     </Switch>
                 </div>

@@ -5,14 +5,19 @@ import { createBrowserHistory } from "history";
 
 import style from './assets/styles/style.scss';
 
+import { Provider } from "react-redux";
+import store from "./redux/store/index";
+
 import App from "./modules/App";
 import { FakeBackend } from "./common/fakebackend/FakeBackend";
 
 FakeBackend();
 
 render(
-    <HashRouter>
-        <App />
-    </HashRouter>,
+    <Provider store={store}>
+        <HashRouter>
+            <App />
+        </HashRouter>
+    </Provider>,
     document.getElementById('app')
 );

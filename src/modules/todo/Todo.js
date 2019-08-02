@@ -1,18 +1,29 @@
 import React from 'react';
 import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { addTask } from "../../redux/actions/index";
 import { TodoService } from "../../common/component/todo/service/TodoService";
 import todoApi from '../../common/service/todoApi';
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTask: task => dispatch(addTask(task))
+    };
+}
 
 class Todo extends React.Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            id: this.props.match.params.id,
+            id: this.props.match.params.id || new Date().getUTCMilliseconds(),
             title: '',
             description: '',
             status: 1
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -30,32 +41,45 @@ class Todo extends React.Component {
         this.props.history.push("/");
     }
 
+    handleChange(event) {
+        this.setState({ [event.target.id]: event.target.value });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         let params = this;
-        if(params.state.id) {
-            todoApi.updateTasks(params.state).then(function(response){
-                if(response.status){
-                    params.setState({
-                        title: '',
-                        description: '',
-                        status: 1
-                    });
-                    params.props.history.push("/");
-                }
-            });
-        } else {
-            todoApi.createTasks(params.state).then(function(response){
-                if(response.status){
-                    params.setState({
-                        title: '',
-                        description: '',
-                        status: 1
-                    });
-                    params.props.history.push("/");
-                }
-            });
-        }
+        this.props.addTask(params.state);
+        params.setState({
+            id: new Date().getUTCMilliseconds(),
+            title: '',
+            description: '',
+            status: 1
+        });
+        
+        //if(params.state.id) {
+        //    todoApi.updateTasks(params.state).then(function(response){
+        //        if(response.status){
+        //            params.setState({
+        //                title: '',
+        //                description: '',
+        //                status: 1
+        //            });
+        //            params.props.history.push("/");
+        //        }
+        //    });
+        //} else {
+        //    this.props.addTask(params.state);
+        //    todoApi.createTasks(params.state).then(function(response){
+        //        if(response.status){
+        //            params.setState({
+        //                title: '',
+        //                description: '',
+        //                status: 1
+        //            });
+        //            params.props.history.push("/");
+        //        }
+        //    });
+        //}
     };
 
     render() {
@@ -64,7 +88,7 @@ class Todo extends React.Component {
 
         return (
             <div className="container">
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label>Título</label>
@@ -85,7 +109,7 @@ class Todo extends React.Component {
                     </div>
                     <div className="btn-toolbar" role="toolbar">
                         <div className="btn-group mr-1" role="group">
-                            <button className="btn btn-primary" onClick={() => this.handleSubmit(event)}>{ id ? 'Atualizar' : 'Cadastrar'}</button>
+                            <button type="submit" className="btn btn-primary">{ id ? 'Atualizar' : 'Cadastrar'}</button>
                         </div>
                         <div className="btn-group" role="group">
                             <button type="button" className="btn btn-danger" onClick={() => this.cancel()}>Cancelar</button>
@@ -97,4 +121,6 @@ class Todo extends React.Component {
     }
 }
 
-export default withRouter(Todo);
+const TodoForm = connect(null, mapDispatchToProps)(Todo);
+
+export default withRouter(TodoForm);

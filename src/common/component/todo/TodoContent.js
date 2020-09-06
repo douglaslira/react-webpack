@@ -27,16 +27,16 @@ class TodoContent extends React.Component {
     }
 
     filterList(status) {
-        this.setState({loading: true, isChecked: status});
-        todoApi.getTasks().then((response)=>{
-            let listFilter = response;
-            if(status !== 0) {
-                listFilter = response.filter((obj)=>{
-                    return obj.status === status;
-                });
-            }
-            this.setState({list: listFilter, loading: false});
-        });
+			this.setState({loading: true, isChecked: status});
+			todoApi.getTasks().then((response)=>{
+				let listFilter = response;
+				if(status !== 0) {
+					listFilter = response.filter((obj)=>{
+						return obj.status === status;
+					});
+				}
+				this.setState({list: listFilter, loading: false});
+			});
     }
 
     removeTask(id) {
@@ -63,20 +63,20 @@ class TodoContent extends React.Component {
                         <TodoFilter {...this.state} sendFilter={this.filterList.bind(this)} />
                     </div>
                 </div>
-                
+
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">Atividades</h5>
                         <div className="list-group">
                             { tasks.length && !loading ? (
-                                tasks.map((todo) => 
+                                tasks.map((todo) =>
                                     <TodoItem {...todo} key={todo.id} remove={this.removeTask.bind(this)} />
                                 )
                             ) : <p>{ tasks.length === 0 && !loading ? <span>Nenhuma atividade com este status</span> : <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> } </p>}
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         )
     }

@@ -1,4 +1,4 @@
-import { ADD_TASK } from "../constants/index";
+import { ADD_TASK, LIST_TASK } from "../constants/index";
 
 export function addTask(payload) {
 
@@ -11,4 +11,12 @@ export function addTask(payload) {
   }
 
   return { type: ADD_TASK, newObj };
+}
+
+export function getTask(payload) {
+
+	let newObj = [];
+
+  return { type: LIST_TASK, newObj };
+
 }

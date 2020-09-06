@@ -14,10 +14,10 @@ import { FakeBackend } from "./common/fakebackend/FakeBackend";
 FakeBackend();
 
 render(
-    <Provider store={store}>
-        <HashRouter>
-            <App />
-        </HashRouter>
-    </Provider>,
-    document.getElementById('app')
+	<Provider store={store}>
+		<HashRouter>
+			<App />
+		</HashRouter>
+	</Provider>,
+	document.getElementById('app')
 );

@@ -12,30 +12,30 @@ import Login from "./login/Login";
 
 class App extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            logged: false
-        }
-    }
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+			logged: false
+		}
+	}
 
-    render() {
+	render() {
 
-        return (
-            <div className="container-fluid">
-                <Header />
-                <div className="row marketing">
-                    <Switch>
-                        <Route path="/login" component={Login}/>
-                        <PrivateRoute exact={true} path="/" component={Home} />
-                        <PrivateRoute path="/todo/:id?" component={Todo} />
-                        <PrivateRoute path="/about" component={About} />
-                    </Switch>
-                </div>
-                <Footer/>
-            </div>
-        )
-    }
+		return (
+			<div className="container-fluid">
+				<Header />
+				<div className="row marketing">
+					<Switch>
+						<Route path="/login" component={Login}/>
+						<PrivateRoute exact={true} path="/" component={Home} />
+						<PrivateRoute path="/todo/:id?" component={Todo} />
+						<PrivateRoute path="/about" component={About} />
+					</Switch>
+				</div>
+				<Footer/>
+			</div>
+		)
+	}
 }
 
 export default App;

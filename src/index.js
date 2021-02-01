@@ -7,7 +7,7 @@ import style from './assets/styles/style.scss';
 
 import { Provider } from "react-redux";
 import store from "./redux/store/index";
-import App from "./modules/App";
+import AppComponent from "./modules/App";
 import { FakeBackend } from "./common/fakebackend/FakeBackend";
 
 const hist = createBrowserHistory();
@@ -16,7 +16,7 @@ FakeBackend();
 render(
 	<Provider store={store}>
 		<Router history={hist}>
-			<App />
+			<AppComponent />
 		</Router>
 	</Provider>,
 	document.getElementById('app')

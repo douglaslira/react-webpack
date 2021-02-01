@@ -1,14 +1,11 @@
 import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
 
-import Header from "../common/layout/header";
+import HeaderComponent from "../common/layout/header/header";
+import SideBarComponent from "../common/layout/sidebar/sidebar";
 import Footer from "../common/layout/footer";
 import { PrivateRoute } from "../common/component/privateroute/PrivateRoute";
-
-import About from "./about/About";
-import Home from "./home/Home";
-import Todo from "./todo/Todo";
-import Login from "./login/Login";
+import indexRoutes from "../routers";
 
 class App extends React.Component {
 
@@ -22,14 +19,21 @@ class App extends React.Component {
 	render() {
 
 		return (
-			<div className="container-fluid">
-				<Header />
-				<div className="row marketing">
+			<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+				<HeaderComponent />
+				<div class="app-main">
+
+					<SideBarComponent />
+
 					<Switch>
-						<Route path="/login" component={Login}/>
-						<PrivateRoute exact={true} path="/" component={Home} />
-						<PrivateRoute path="/todo/:id?" component={Todo} />
-						<PrivateRoute path="/about" component={About} />
+						{
+							indexRoutes.map((prop, key) => {
+								if(prop.restrict) {
+									return <PrivateRoute path={prop.path} key={key} component={prop.component} />;
+								}
+          			return <Route path={prop.path} key={key} component={prop.component} />;
+        			})
+						}
 					</Switch>
 				</div>
 				<Footer/>

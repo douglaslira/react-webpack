@@ -1,73 +1,41 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
-@import 'about';
 
-body {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    background-color:#fff;
-}
+@import "themes/layout-variables";
+@import "layout/layout";
 
-.header, .marketing, .footer {
-    padding-right: 1rem;
-    padding-left: 1rem;
-}
+@import "utils/helpers";
+@import "utils/backgrounds";
+@import "utils/animate";
+@import "utils/comps-animations";
 
-.header {
-    padding-bottom: 1rem;
-    border-bottom: .05rem solid #e5e5e5;
+@import "elements/buttons";
+@import "elements/dropdown";
+@import "elements/badges";
+@import "elements/cards";
+@import "elements/tabs";
+@import "elements/accordions";
+@import "elements/modals";
+@import "elements/navs";
+@import "elements/listgroup";
+@import "elements/forms";
+@import "elements/pagination";
 
-    h3 {
-        margin-top: 0;
-        margin-bottom: 0;
-        line-height: 3rem;
-    }
-}
+@import "widgets/content-boxes/content-boxes";
+@import "components/perfect-scrollbar/perfect-scrollbar";
 
-.footer {
-    padding-top: 1.5rem;
-    color: #777;
-    border-top: .05rem solid #e5e5e5;
-}
+//@import "components/icons/fontawesome/fontawesome";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '../../../node_modules/@fortawesome/fontawesome-free/scss/solid';
+@import '../../../node_modules/@fortawesome/fontawesome-free/scss/regular';
 
-.container-narrow > hr {
-    margin: 2rem 0;
-}
 
-.jumbotron {
-    text-align: center;
-    border-bottom: .05rem solid #e5e5e5;
-    
-    .btn {
-        padding: .75rem 1.5rem;
-        font-size: 1.5rem;
-    }
-}
-
-.marketing {
-    margin: 3rem 0;
-    p + h4 {
-        margin-top: 1.5rem;
-    }
-}
-
-@media (min-width: 48em) {
-    .container {
-        max-width: 46rem;
-    }
-}
-
-@media screen and (min-width: 48em) {
-    .header,
-    .marketing,
-    .footer {
-        padding-right: 0;
-        padding-left: 0;
-    }
-    .header {
-        margin-bottom: 2rem;
-    }
-    .jumbotron {
-        border-bottom: 0;
-    }
-}
+@import "components/icons/p7icons";
+@import "components/hamburgers/hamburgers";
+@import "components/notifications/toastr";
+@import "components/popovers-tooltips/popovers-tooltips";
+@import "components/calendar/calendar";
+@import "components/maps/vector-maps";
+@import "layout/responsive/responsive-base";
+@import "demo-ui/demo";

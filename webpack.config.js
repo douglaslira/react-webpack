@@ -37,11 +37,18 @@ module.exports = env => {
 					loader: "html-loader",
 					options: { minimize: true }
 				}]
-			},{
-				test: /\.scss$/,
-				use: [{ loader: MiniCssExtractPlugin.loader }, "css-loader", "sass-loader"]
-			},{
-				test: /\.(png|jpg)$/,
+			}, {
+				test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+				use: {
+					loader: "file-loader",
+					options: {
+            name: "[name].[ext]",
+            outputPath: "fonts/", 
+            publicPath: "../fonts/"
+					}
+				}
+			}, {
+				test: /\.(svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
 				use: {
 					loader: "file-loader",
 					options: {
@@ -49,6 +56,9 @@ module.exports = env => {
 						outputPath: "images/"
 					}
 				}
+			},{
+				test: /\.scss$/,
+				use: [{ loader: MiniCssExtractPlugin.loader, options: {publicPath: ''} }, "css-loader", "sass-loader"]
 			}]
 		},
 		plugins: [

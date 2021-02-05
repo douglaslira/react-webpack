@@ -43,9 +43,9 @@ class TodoContent extends React.Component {
 		function formatStatus(code) {
 			switch (code) {
 				case 1:
-					return (<span className="badge badge-primary">A</span>);
+					return (<span className="badge badge-primary">Open</span>);
 				case 2:
-					return (<span className="badge badge-danger">F</span>);
+					return (<span className="badge badge-danger">Closed</span>);
 				default:
 					break;
 			}
@@ -56,14 +56,14 @@ class TodoContent extends React.Component {
 			<div>
 				<div className="card mb-1">
 					<div className="card-body">
-						<h5 className="card-title">Filtros</h5>
+						<h5 className="card-title">Filter by</h5>
 						<TodoFilter {...this.state} sendFilter={this.filterList.bind(this)} />
 					</div>
 				</div>
 
 				<div className="card">
 					<div className="card-body">
-						<h5 className="card-title">Atividades</h5>
+						<h5 className="card-title">Tasks</h5>
 						<div className="list-group">
 						{
 							tasks.map((todo, index) =>

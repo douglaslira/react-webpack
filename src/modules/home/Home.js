@@ -11,7 +11,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<h1>Lista de Atividades</h1>
+				<h1>Todo list</h1>
 				<TodoContentComponent />
 			</div>
 		)

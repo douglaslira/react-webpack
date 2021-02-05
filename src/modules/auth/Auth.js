@@ -4,6 +4,7 @@ import { bindActionCreators  } from "redux";
 
 import { authAction } from "../../redux/actions/auth/authActions";
 import { AuthService } from "../../common/service/authService";
+import logodigital from "../../assets/images/logo-digital.png";
 
 class Auth extends React.Component {
 
@@ -56,6 +57,9 @@ class Auth extends React.Component {
 
 		return (
 			<div className="col-md-6 offset-md-3">
+
+				<img src={logodigital} className="rounded mx-auto d-block" alt="" />
+
 				<form name="form" onSubmit={this.handleSubmit}>
 					<div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
 						<label htmlFor="username">Username</label>

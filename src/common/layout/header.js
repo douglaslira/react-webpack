@@ -36,7 +36,7 @@ class Header extends React.Component {
 										{ auth.isLogged ? <li className="nav-item"><button className="btn btn-danger" onClick={this.logout}>Logout</button></li> : '' }
 									</ul>
 								</nav>
-								<h3 className="text-muted">React with webpack</h3>
+								<h3 className="text-muted">React + Redux + Webpack</h3>
 							</div>
 						</div>
 					) : (

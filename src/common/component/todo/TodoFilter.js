@@ -4,11 +4,11 @@ import { withRouter } from "react-router";
 class TodoFilter extends React.Component {
 
     toggleChange(obj) {
-        this.props.sendFilter(obj);
+			this.props.sendFilter(obj);
     }
 
     add() {
-        this.props.history.push("/todo");
+			this.props.history.push("/todo");
     }
 
     render() {
@@ -40,4 +40,4 @@ class TodoFilter extends React.Component {
     }
 }
 
-export default withRouter(TodoFilter);
+export default TodoFilter;

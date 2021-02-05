@@ -1,9 +1,9 @@
 import config from 'config';
 
-export const LoginService = {
+export const AuthService = {
     login,
     logout,
-    checkLogin
+    checkAuth
 };
 
 function logout() {
@@ -29,8 +29,12 @@ function login(username, password) {
 
 }
 
-function checkLogin(){
-    return window.localStorage.getItem('user') ? true : false;
+function checkAuth(){
+	const user = {
+		isLogged: window.localStorage.getItem('user') ? true : false,
+		userInfo: JSON.parse(window.localStorage.getItem('user'))
+	};
+	return user;
 }
 
 function handleResponse(obj) {

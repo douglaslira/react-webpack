@@ -1,87 +1,105 @@
 import React from 'react';
-import TodoItem from "./TodoItem";
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from "react-router-dom";
 import TodoFilter from "./TodoFilter";
-import { TodoService } from "./service/TodoService";
-import todoApi from '../../service/todoApi';
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getTask } from "../../../redux/actions/index";
+import { getTask, removeTask, filterTask } from "../../../redux/actions/task/taskActions";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getTask: () => dispatch(getTask())
-    };
-}
-
-const mapStateToProps = state => {
-    return { tasks: state.tasks };
-};
+library.add(faEdit, faTrash);
 
 class TodoContent extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            loading: false,
-            isChecked: 0
-        };
-    }
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+			loading: false,
+			isChecked: 0
+		};
+		this.remove = this.remove.bind(this);
+		this.edit = this.edit.bind(this);
+	}
 
-    filterList(status) {
-			this.setState({loading: true, isChecked: status});
-			todoApi.getTasks().then((response)=>{
-				let listFilter = response;
-				if(status !== 0) {
-					listFilter = response.filter((obj)=>{
-						return obj.status === status;
-					});
-				}
-				this.setState({list: listFilter, loading: false});
-			});
-    }
+	filterList(status) {
+		this.setState({loading: true, isChecked: status});
+		this.props.getTask(status);
+	}
 
-    removeTask(id) {
-        this.setState({loading: true});
-        todoApi.removeTasks({id: id}).then((response)=>{
-            this.setState({loading: false});
-        }).then(()=>{
-            todoApi.getTasks().then((response)=>{
-                this.setState({list: response});
-            });
-        });
-    }
+	remove(id) {
+		this.props.removeTask(id);
+		this.props.getTask(0);
+	}
 
-    render() {
+	edit(id) {
+		this.props.history.push(`/todo/${id}`);
+	}
 
-        let { loading } = this.state;
-        let { tasks } = this.props;
+	render() {
 
-        return (
-            <div>
-                <div className="card mb-1">
-                    <div className="card-body">
-                        <h5 className="card-title">Filtros</h5>
-                        <TodoFilter {...this.state} sendFilter={this.filterList.bind(this)} />
-                    </div>
-                </div>
+		let { tasks } = this.props;
 
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">Atividades</h5>
-                        <div className="list-group">
-                            { tasks.length && !loading ? (
-                                tasks.map((todo) =>
-                                    <TodoItem {...todo} key={todo.id} remove={this.removeTask.bind(this)} />
-                                )
-                            ) : <p>{ tasks.length === 0 && !loading ? <span>Nenhuma atividade com este status</span> : <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> } </p>}
-                        </div>
-                    </div>
-                </div>
+		function formatStatus(code) {
+			switch (code) {
+				case 1:
+					return (<span className="badge badge-primary">A</span>);
+				case 2:
+					return (<span className="badge badge-danger">F</span>);
+				default:
+					break;
+			}
+		}
 
-            </div>
-        )
-    }
+		return (
+
+			<div>
+				<div className="card mb-1">
+					<div className="card-body">
+						<h5 className="card-title">Filtros</h5>
+						<TodoFilter {...this.state} sendFilter={this.filterList.bind(this)} />
+					</div>
+				</div>
+
+				<div className="card">
+					<div className="card-body">
+						<h5 className="card-title">Atividades</h5>
+						<div className="list-group">
+						{
+							tasks.map((todo, index) =>
+								<div key={index} className="list-group-item list-group-item-action">
+									<div className="row">
+										<div className="col-10">
+											<div className="d-flex w-100 justify-content-between">
+												<h5 className="mb-1">{formatStatus(todo.status)} {todo.title}</h5>
+											</div>
+											<small>{todo.description}</small>
+										</div>
+										<div className="col-2">
+											<div className="btn-group" role="group">
+												<Link className="btn btn-primary" to={`/todo/${todo.id}`}>
+													<FontAwesomeIcon icon={faEdit} />
+												</Link>
+												<button type="button" className="btn btn-danger" onClick={() => this.remove(todo.id)}><FontAwesomeIcon icon={faTrash} /></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							)
+						}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		)
+	}
 }
 
-const TodoBla = connect(mapStateToProps, mapDispatchToProps)(TodoContent);
+const mapDispatchToProps = dispatch => bindActionCreators({ getTask, removeTask, filterTask }, dispatch);
+const mapStateToProps = state => {
+	return { tasks: state.todoObj.tasks };
+};
 
-export default TodoBla
+const TodoContentComponent = connect(mapStateToProps, mapDispatchToProps)(TodoContent);
+export default TodoContentComponent

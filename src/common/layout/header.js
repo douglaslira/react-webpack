@@ -1,69 +1,55 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import { LoginService } from "../../modules/login/service/LoginService";
+import { connect } from "react-redux";
+import { AuthService } from "../../common/service/authService";
 
 class Header extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            logged: LoginService.checkLogin()
-        };
+	constructor(props, context) {
+		super(props, context);
+		this.logout = this.logout.bind(this);
+	}
 
-        this.logout = this.logout.bind(this);
-    }
+	logout() {
+		AuthService.logout();
+		window.location.reload();
+	}
 
-    logout() {
-        LoginService.logout();
-        window.location.reload();
-    }
+	render() {
 
-    componentWillMount() {
-        this.unlisten = this.props.history.listen((location, action) => {
-            if(LoginService.checkLogin()){
-                this.setState({
-                    logged: true
-                })
-            };
-        });
-    }
+		const { auth } = this.props;
 
-    componentWillUnmount() {
-        this.unlisten();
-    }
-
-    render() {
-
-        const { logged } = this.state;
-
-        return (
-            <div>
-                {
-                    logged ? (
-                        <div>
-                            <div className="header clearfix">
-                                <nav>
-                                    <ul className="nav nav-pills float-right">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='/'>Home</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='about'>About</Link>
-                                        </li>
-                                        { logged ? <li className="nav-item"><button className="btn btn-danger" onClick={this.logout}>Logout</button></li> : '' }
-                                    </ul>
-                                </nav>
-                                <h3 className="text-muted">React with webpack</h3>
-                            </div>
-                        </div>
-                    ) : (
-                        <div></div>
-                    )
-                }
-            </div>
-        )
-    }
+		return (
+			<div>
+				{
+					auth.isLogged ? (
+						<div>
+							<div className="header clearfix">
+								<nav>
+									<ul className="nav nav-pills float-right">
+										<li className="nav-item">
+											<Link className="nav-link" to='/'>Home</Link>
+										</li>
+										<li className="nav-item">
+											<Link className="nav-link" to='about'>About</Link>
+										</li>
+										{ auth.isLogged ? <li className="nav-item"><button className="btn btn-danger" onClick={this.logout}>Logout</button></li> : '' }
+									</ul>
+								</nav>
+								<h3 className="text-muted">React with webpack</h3>
+							</div>
+						</div>
+					) : (
+						<div></div>
+					)
+				}
+			</div>
+		)
+	}
 }
 
-export default withRouter(Header);
+const mapStateToProps = state => {
+	return { auth: state.authObj };
+};
+const HeaderComponent = connect(mapStateToProps)(Header);
+export default HeaderComponent;

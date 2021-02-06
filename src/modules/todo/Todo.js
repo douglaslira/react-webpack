@@ -63,11 +63,11 @@ class Todo extends React.Component {
 						<div className="form-row">
 							<div className="form-group col-md-6">
 								<label>Título</label>
-								<input type="text" className="form-control" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} placeholder="Digite um título" />
+								<input type="text" className="form-control" id="title" name="title" value={this.state.title} onChange={this.handleChange} placeholder="Digite um título" />
 							</div>
 							<div className="form-group col-md-6">
 								<label>Status</label>
-								<select className="form-control" value={this.state.status} onChange={event => this.setState({ status: event.target.value })}>
+								<select className="form-control" id="status" name="status" value={this.state.status} onChange={this.handleChange}>
 									<option>- Selecione um status -</option>
 									<option value="1">Aberto</option>
 									<option value="2">Fechado</option>
@@ -76,7 +76,7 @@ class Todo extends React.Component {
 						</div>
 						<div className="form-group">
 							<label>Descrição</label>
-							<textarea className="form-control" value={this.state.description} onChange={event => this.setState({ description: event.target.value })} placeholder="Digite uma descrição"></textarea>
+							<textarea id="description" name="description" className="form-control" value={this.state.description} onChange={this.handleChange} placeholder="Digite uma descrição"></textarea>
 						</div>
 						<div className="btn-toolbar" role="toolbar">
 								<div className="btn-group mr-1" role="group">
